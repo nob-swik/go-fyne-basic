@@ -1,27 +1,25 @@
 package main
 
 import (
+	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/theme"
+	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 )
 
 func main() {
 	a := app.New()
 	w := a.NewWindow("Hello")
-	l := widget.NewLabel("Hello Fyne!")
-	ne := widget.NewEntry()
-	pe := widget.NewPasswordEntry()
 	w.SetContent(
-		widget.NewVBox(
-			l,
-			widget.NewForm(
-				widget.NewFormItem("Name", ne),
-				widget.NewFormItem("Pass", pe),
-			),
-			widget.NewButton("OK", func() {
-				l.SetText(ne.Text + " & " + pe.Text)
-			}),
+		fyne.NewContainerWithLayout(
+			layout.NewGridLayout(3),
+			widget.NewButton("one", nil),
+			widget.NewButton("two", nil),
+			widget.NewButton("three", nil),
+			widget.NewButton("four", nil),
+			layout.NewSpacer(),
+			widget.NewButton("five", nil),
 		),
 	)
 	a.Settings().SetTheme(theme.LightTheme())
