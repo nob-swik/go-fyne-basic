@@ -2,20 +2,27 @@ package main
 
 import (
 	"fyne.io/fyne/app"
+	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 )
 
 func main() {
 	a := app.New()
-
 	w := a.NewWindow("Hello")
+	l := widget.NewLabel("Hello Fyne!")
+	c := widget.NewCheck("Check!", func (f bool)  {
+		if f {
+			l.SetText("CHECKED!!")
+		} else {
+			l.SetText("not checked.")
+		}
+	})
+	c.SetChecked(true)
 	w.SetContent(
 		widget.NewVBox(
-			widget.NewLabel("Hello Fyne!"),
-			widget.NewLabel("This is sample application!"),
+			l, c,
 		),
 	)
-
+	a.Settings().SetTheme(theme.LightTheme())
 	w.ShowAndRun()
-
 }
