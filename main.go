@@ -7,21 +7,21 @@ import (
 )
 
 func main() {
-	v := 0.
 	a := app.New()
 	w := a.NewWindow("Hello")
 	l := widget.NewLabel("Hello Fyne!")
-	p := widget.NewProgressBar()
-	b := widget.NewButton("UP!!", func() {
-		v += 0.1
-		if v > 1.0 {
-			v = 0.
-		}
-		p.SetValue(v)
-	})
+	ne := widget.NewEntry()
+	pe := widget.NewPasswordEntry()
 	w.SetContent(
 		widget.NewVBox(
-			l, p, b,
+			l,
+			widget.NewForm(
+				widget.NewFormItem("Name", ne),
+				widget.NewFormItem("Pass", pe),
+			),
+			widget.NewButton("OK", func() {
+				l.SetText(ne.Text + " & " + pe.Text)
+			}),
 		),
 	)
 	a.Settings().SetTheme(theme.LightTheme())
