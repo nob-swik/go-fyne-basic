@@ -10,17 +10,19 @@ func main() {
 	a := app.New()
 	w := a.NewWindow("Hello")
 	l := widget.NewLabel("Hello Fyne!")
-	c := widget.NewCheck("Check!", func (f bool)  {
-		if f {
-			l.SetText("CHECKED!!")
-		} else {
-			l.SetText("not checked.")
-		}
-	})
-	c.SetChecked(true)
+	r := widget.NewRadioGroup(
+		[]string{"ONE", "TWO", "THREE"},
+		func(s string) {
+			if s == "" {
+				l.SetText("not selected.")
+			} else {
+				l.SetText("selected: " + s)
+			}
+		})
+		r.SetSelected("ONE")
 	w.SetContent(
 		widget.NewVBox(
-			l, c,
+			l, r,
 		),
 	)
 	a.Settings().SetTheme(theme.LightTheme())
