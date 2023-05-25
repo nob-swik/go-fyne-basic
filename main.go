@@ -7,17 +7,21 @@ import (
 )
 
 func main() {
+	v := 0.
 	a := app.New()
 	w := a.NewWindow("Hello")
 	l := widget.NewLabel("Hello Fyne!")
-	sl := widget.NewSelect([]string{
-		"Eins", "Twei", "Drei",
-	}, func(s string) {
-		l.SetText("selected: " + s)
+	p := widget.NewProgressBar()
+	b := widget.NewButton("UP!!", func() {
+		v += 0.1
+		if v > 1.0 {
+			v = 0.
+		}
+		p.SetValue(v)
 	})
 	w.SetContent(
 		widget.NewVBox(
-			l, sl,
+			l, p, b,
 		),
 	)
 	a.Settings().SetTheme(theme.LightTheme())
