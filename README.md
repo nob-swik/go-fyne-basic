@@ -16,6 +16,14 @@ sudo apt install golang-go
 go version
 ```
 
+### in VSCode
+
+- Go の拡張機能をインストール
+
+- インストールが完了したら、Ctrl + Shift + P でコマンドパレットを開いて、「GO: Install/Update tools」を入力してEnter
+
+- 出てきたメニューの全てを選択しOK
+
 ## Fyne
 
 ### 準備(必要パッケージインストール)
@@ -24,7 +32,7 @@ go version
 sudo apt-get install gcc libgl1-mesa-dev xorg-dev
 ```
 
-・適当なフォルダを作成してその中に移動
+- 適当なフォルダを作成してその中に移動
 
 ### module 初期化
 
