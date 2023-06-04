@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"fyne.io/fyne"
@@ -12,27 +11,6 @@ import (
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 )
-
-type MyEntry struct {
-	widget.Entry
-	entered func(e *MyEntry)
-}
-
-func NewMyEntry(f func(e *MyEntry)) *MyEntry {
-	e := &MyEntry{}
-	e.ExtendBaseWidget(e)
-	e.entered = f
-	return e
-}
-
-func (e *MyEntry) KeyDown(key *fyne.KeyEvent) {
-	switch key.Name {
-	case fyne.KeyReturn, fyne.KeyEnter:
-		e.entered(e)
-	default:
-		e.Entry.KeyDown(key)
-	}
-}
 
 func main() {
 	a := app.New()
@@ -64,7 +42,6 @@ func main() {
 			if uc == nil {
 				return
 			}
-			fmt.Println(uc.URI().String())
 			err = os.WriteFile(uc.URI().String()[7:], []byte(edit.Text), os.ModePerm)
 			if err != nil {
 				dialog.ShowError(err, w)
@@ -113,12 +90,20 @@ func main() {
 		),
 		fyne.NewMenu("Edit",
 			fyne.NewMenuItem("Cut", func() {
+				edit.TypedShortcut(&fyne.ShortcutCut{Clipboard: w.Clipboard()})
+				sta.SetText("Cut text.")
 			}),
 			fyne.NewMenuItem("Copy", func() {
+				edit.TypedShortcut(&fyne.ShortcutCopy{Clipboard: w.Clipboard()})
+				sta.SetText("Copy text.")
 			}),
 			fyne.NewMenuItem("Paste", func() {
+				edit.TypedShortcut(&fyne.ShortcutPaste{Clipboard: w.Clipboard()})
+				sta.SetText("Paste text.")
 			}),
-			fyne.NewMenuItem("Change Theme", func() {
+			fyne.NewMenuItem("Select all", func() {
+				edit.TypedShortcut(&fyne.ShortcutSelectAll{})
+				sta.SetText("Select all text.")
 			}),
 		),
 	)
